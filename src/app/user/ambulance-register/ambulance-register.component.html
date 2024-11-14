@@ -1,0 +1,217 @@
+
+<div class="row">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Ambulance Register Form</h2>
+            </div>
+            <!-- <div class="form-date">
+                <span class="date-text">Date - 10/11/2022</span>
+            </div> -->
+            <form [formGroup]="navForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="dateOfVisit" class="form-label">Date Of Visit</label>
+                        <input type="date" class="form-control" id="dateOfVisit" formControlName="date_of_visit" />
+                        <div *ngIf="
+                navForm.get('date_of_visit')?.invalid &&
+                (navForm.get('date_of_visit')?.touched ||
+                  navForm.get('date_of_visit')?.dirty)
+              " class="text-danger">
+                            <small *ngIf="navForm.get('date_of_visit')?.errors?.['required']">Date of visit is
+                                required.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="arrivalTime" class="form-label">Arrival Time</label>
+                        <input type="time" class="form-control" id="arrivalTime" formControlName="arrival_time" />
+                        <div *ngIf="
+                navForm.get('arrival_time')?.invalid &&
+                (navForm.get('arrival_time')?.touched ||
+                  navForm.get('arrival_time')?.dirty)
+              " class="text-danger">
+                            <small *ngIf="navForm.get('arrival_time')?.errors?.['required']">Arrival time is
+                                required.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="patientName" class="form-label">Patient Name</label>
+                        <input type="text" class="form-control" id="patientName" placeholder="Patient Name"
+                            formControlName="patient_name" />
+                        <div *ngIf="
+                navForm.get('patient_name')?.invalid &&
+                (navForm.get('patient_name')?.touched ||
+                  navForm.get('patient_name')?.dirty)
+              " class="text-danger">
+                            <small *ngIf="navForm.get('patient_name')?.errors?.['required']">Patient name is
+                                required.</small>
+                            <small *ngIf="navForm.get('patient_name')?.errors?.['pattern']">Only letters and spaces are
+                                allowed.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="ambulanceNumber" class="form-label">Ambulance Number</label>
+                        <input type="text" class="form-control" id="ambulanceNumber" placeholder="Ambulance Number"
+                            formControlName="ambulance_number" />
+                        <div *ngIf="
+                navForm.get('ambulance_number')?.invalid &&
+                (navForm.get('ambulance_number')?.touched ||
+                  navForm.get('ambulance_number')?.dirty)
+              " class="text-danger">
+                            <small *ngIf="navForm.get('ambulance_number')?.errors?.['required']">Ambulance number is
+                                required.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="state" class="form-label">State</label>
+                        <select class="form-select" id="state" #state formControlName="state_id"
+                            (change)="getDist(state.value)">
+                            <option value="">--select--</option>
+                            <option *ngFor="let data of all_state" [value]="data.state_id">
+                                {{ data.state_name }}
+                            </option>
+                        </select>
+                        <div *ngIf="
+                navForm.get('state_id')?.invalid &&
+                (navForm.get('state_id')?.touched ||
+                  navForm.get('state_id')?.dirty)
+              " class="text-danger">
+                            <small *ngIf="navForm.get('state_id')?.errors?.['required']">State selection is
+                                required.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="district" class="form-label">District</label>
+                        <select type="text" class="form-select" id="district" placeholder="District"
+                            formControlName="dist_id">
+                            <option value="">----select---</option>
+                            <option *ngFor="let data of all_dist" [value]="data.dist_id">
+                                {{ data.dist_name }}
+                            </option>
+                        </select>
+                        <div *ngIf="
+                navForm.get('dist_id')?.invalid &&
+                (navForm.get('dist_id')?.touched ||
+                  navForm.get('dist_id')?.dirty)
+              " class="text-danger">
+                            <small *ngIf="navForm.get('dist_id')?.errors?.['required']">District is required.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="fromLocation" class="form-label">From Which Area Location</label>
+                        <input type="text" class="form-control" id="fromLocation" placeholder="From Location"
+                            formControlName="location" />
+                        <div *ngIf="
+                navForm.get('location')?.invalid &&
+                (navForm.get('location')?.touched ||
+                  navForm.get('location')?.dirty)
+              " class="text-danger">
+                            <small *ngIf="navForm.get('location')?.errors?.['required']">Location is required.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="driverName" class="form-label">Driver Name</label>
+                        <input type="text" class="form-control" id="driverName" placeholder="Driver Name"
+                            formControlName="driver_name" />
+                        <div *ngIf="
+                navForm.get('driver_name')?.invalid &&
+                (navForm.get('driver_name')?.touched ||
+                  navForm.get('driver_name')?.dirty)
+              " class="text-danger">
+                            <small *ngIf="navForm.get('driver_name')?.errors?.['required']">Driver name is
+                                required.</small>
+                            <small *ngIf="navForm.get('driver_name')?.errors?.['pattern']">Only letters and spaces are
+                                allowed.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="driverMobile" class="form-label">Driver Mobile Number</label>
+                        <input type="number" class="form-control" id="driverMobile" placeholder="Driver Mobile Number"
+                            formControlName="driver_contact_no" />
+                        <div *ngIf="
+                navForm.get('driver_contact_no')?.invalid &&
+                (navForm.get('driver_contact_no')?.touched ||
+                  navForm.get('driver_contact_no')?.dirty)
+              " class="text-danger">
+                            <small *ngIf="navForm.get('driver_contact_no')?.errors?.['required']">Driver mobile number
+                                is required.</small>
+                            <small *ngIf="navForm.get('driver_contact_no')?.errors?.['pattern']">Must be exactly 10
+                                digits.</small>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-4 mb-3">
+                        <label for="fee" class="form-label">Fee ₹</label>
+                        <input type="number" class="form-control" id="fee" placeholder="Fee"
+                            formControlName="payment_amount">
+                        <div *ngIf="navForm.get('payment_amount')?.invalid && (navForm.get('payment_amount')?.touched || navForm.get('payment_amount')?.dirty)"
+                            class="text-danger">
+                            <small *ngIf="navForm.get('payment_amount')?.errors?.['required']">Payment amount is
+                                required.</small>
+                            <small *ngIf="navForm.get('payment_amount')?.errors?.['pattern']">Only numbers are
+                                allowed.</small>
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-4 mb-3">
+                        <label for="coming_from_which_hospital" class="form-label">Coming From Hospital</label>
+                        <input type="text" class="form-control" id="coming_from_which_hospital"
+                            placeholder="coming_from_which_hospital" formControlName="coming_from_which_hospital" />
+                        <!-- <div *ngIf="navForm.get('coming_from_which_hospital')?.invalid && (navForm.get('coming_from_which_hospital')?.touched || navForm.get('coming_from_which_hospital')?.dirty)"
+                            class="text-danger">
+                            <small *ngIf="navForm.get('coming_from_which_hospital')?.errors?.['required']">Payment amount is
+                                required.</small>
+                            <small *ngIf="navForm.get('coming_from_which_hospital')?.errors?.['pattern']">Only numbers are
+                                allowed.</small>
+                        </div> -->
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="camera" class="form-label">Capture Image</label>
+                        
+                        <!-- Input Group for Camera and Upload Buttons -->
+                        <div class="input-group">
+                          <!-- Capture Button to Open Camera -->
+                          <button 
+                            type="button" 
+                            class="btn btn-primary" 
+                            (click)="openCamera()">Open Camera</button>
+                        
+                          <!-- Upload Button -->
+                          <button 
+                            type="button" 
+                            class="btn btn-success" 
+                            [disabled]="!capturedImage" 
+                            (click)="uploadImage()">Upload</button>
+                        </div>
+                        
+                        <!-- Video Feed for Camera -->
+                        <div class="mt-3" *ngIf="cameraActive">
+                          <video id="video" width="100%" height="auto" autoplay></video>
+                          <button type="button" class="btn btn-secondary mt-2" (click)="captureImage()">Capture</button>
+                        </div>
+                        
+                        <!-- Image Preview -->
+                        <div *ngIf="capturedImage" class="mt-3">
+                          <img [src]="capturedImage" alt="Captured Image" class="img-fluid">
+                        </div>
+                        
+                        <!-- Hidden Canvas to Capture Image -->
+                        <canvas id="canvas" style="display:none;"></canvas>
+                      </div>
+                      
+                      
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

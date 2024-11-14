@@ -1,0 +1,62 @@
+.form-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 20px auto;
+    margin-top: 0px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.form-header {
+    background-color: #274472;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+}
+.submit-btn {
+    background-color: #274472;
+    color: white;
+}
+.submit-btn:hover {
+    background-color: #495057;
+}
+.form-date {
+    display: flex;
+    justify-content: space-between;
+}
+.date-text {
+    font-size: 0.9rem;
+}
+
+h2{
+    font-size: 1.2rem;
+}
+.use{
+    color: #c12e2a;
+}
+@media(max-width:600px){
+    h2{
+        font-size: 0.8rem;
+    }
+    label,input{
+        font-size: 0.8rem;
+    }
+  
+}
+
+.form-check-input {
+    cursor: pointer;
+}
+
+/* Unchecked state - secondary color */
+.form-check-input:not(:checked) {
+    background-color: #6c757d; /* Bootstrap secondary color */
+    border-color: #6c757d;
+}
+
+/* Checked state - danger color */
+.form-check-input:checked {
+    background-color: #dc3545; /* Bootstrap danger color */
+    border-color: #dc3545;
+}

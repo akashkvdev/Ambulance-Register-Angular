@@ -1,0 +1,36 @@
+h2{
+    font-size: 1.5rem;
+    color:  #c12e2a;
+}
+thead tr th{
+background-color: #274472;
+color: #ffffffe4;
+}
+.btn{
+    background-color: #274472;
+    color: #ffffffe4;
+}
+@media(max-width:600px){
+h2{
+    font-size: 1rem;
+}
+tr,th{
+    font-size: 0.8rem;
+}
+}
+
+.form-check-input {
+    cursor: pointer;
+}
+
+/* Unchecked state - secondary color */
+.form-check-input:not(:checked) {
+    background-color: #6c757d; /* Bootstrap secondary color */
+    border-color: #6c757d;
+}
+
+/* Checked state - danger color */
+.form-check-input:checked {
+    background-color: #dc3545; /* Bootstrap danger color */
+    border-color: #dc3545;
+}

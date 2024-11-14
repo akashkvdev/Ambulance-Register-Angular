@@ -1,0 +1,214 @@
+<div class="container mb-4">
+  <h2 class="text-center mb-3">Patient Details</h2>
+
+  <!-- Date Filter Section -->
+  <div class="row mb-3">
+    <div class="col-md-5">
+      <label for="fromDate" class="form-label">From Date</label>
+      <input type="date" class="form-control" id="fromDate" [(ngModel)]="fromDate">
+    </div>
+    <div class="col-md-5">
+      <label for="toDate" class="form-label">To Date</label>
+      <input type="date" class="form-control" id="toDate" [(ngModel)]="toDate">
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+      <button class="btn btn-primary" id="filterBtn" (click)="filterData()">Filter</button>
+    </div>
+  </div>
+
+  <!-- Patient Details Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col">Sl No</th>
+          <th scope="col">Date</th>
+          <th scope="col">Time</th>
+          <th scope="col">Patient Name</th>
+          <th scope="col">From Medical</th>
+          <th scope="col">Location</th>
+          <th scope="col">State</th>
+          <th scope="col">Dist</th>
+          <th scope="col">Ambulance No</th>
+          <th scope="col">Driver Name</th>
+          <th scope="col">Entry By</th>
+          <!-- <th scope="col">Patient Adhar No</th> -->
+          <th scope="col">Id Type</th>
+          <th scope="col">ID Number</th>
+          <th scope="col">Mode Of Admission</th>
+          <th scope="col">Admitted Area/Cabin</th>
+          <th scope="col">Referred By</th>
+          <th scope="col">Remarks</th>
+          <th scope="col">Patient Mobile No</th>
+          <th scope="col">Ip No</th>
+          <th scope="col">Op No</th>
+          <th scope="col">Department</th>
+          <th scope="col">Payement Amount</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of filteredData; index as i">
+          <th scope="row">{{i+1}}</th>
+          <td>{{data?.date_of_visit || '-'}}</td>
+          <td>{{data?.arrival_time || '-'}}</td>
+          <td>{{data?.patient?.patient_name}}</td>
+          <td>{{data?.coming_from_which_hospital || '-'}}</td>
+          <td>{{data?.location?.location}}</td>
+          <td>{{data?.location?.district?.state?.state_name || '-'}}</td>
+          <td>{{data?.location?.district?.dist_name || '-'}}</td>
+          <td>{{data?.ambulance?.ambulance_number || '-'}}</td>
+          <td>{{data?.driver_name || '-'}}</td>
+          <td>{{data?.entry_by?.user_name || '-'}}</td>
+          <!-- <td>{{data?.patient?.adhar_no || '-'}}</td> -->
+          <td>{{data?.patient?.other_id_type || '-'}}</td>
+          <td>{{data?.patient?.other_id_no || '-'}}</td>
+          <td>{{data?.hospitality?.modeofadmission?.mode_of_admission || '-'}}</td>
+          <td>{{data?.hospitality?.admitted_area || '-'}}</td>
+          <td>{{data?.hospitality?.referred_by || '-'}}</td>
+          <td>{{data?.hospitality?.remarks || '-'}}</td>
+          <td>{{data?.patient?.mobile_number || '-'}}</td>
+          <td>{{data?.hospitality?.ip || '-'}}</td>
+          <td>{{data?.hospitality?.op || '-'}}</td>
+          <td>{{data?.hospitality?.departments?.department_name || '-'}}</td>
+          <td>{{data?.payments?.payment_amount || '-'}}</td>
+          <td *ngIf="!data?.patient?.other_id_no">
+            <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#editModal1" (click)="editDetaildata(data)">+Add</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+ <!-- Modal for Editing Patient Details -->
+<div class="modal fade" id="editModal1" tabindex="-1" aria-labelledby="editModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel1">Add Patient Details - {{patient_name}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="otherid_type" class="form-label">Select Id Type</label>
+              <select class="form-select" id="otherid_type" formControlName="other_id_type">
+                <option value="">---select--</option>
+                <option value="aadhaar_card">Aadhaar Card</option>
+                <option value="pan_card">PAN Card</option>
+                <option value="voter_id">Voter ID Card</option>
+                <option value="passport">Passport</option>
+                <option value="driving_license">Driving License</option>
+                <option value="ration_card">Ration Card</option>
+                <option value="employee_id">Employee ID</option>
+                <option value="health_insurance_card">Health Insurance Card</option>
+                <option value="school_college_id">School or College ID</option>
+                <option value="birth_certificate">Birth Certificate</option>
+                <option value="uhid">Unique Hospital ID (UHID)</option>
+                <option value="other">Other</option>
+              </select>
+              <div *ngIf="patientForm.get('other_id_type')?.invalid && (patientForm.get('other_id_type')?.touched || submitted)" class="text-danger">
+                Please select an ID type.
+              </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="editOtherId1" class="form-label">ID Number</label>
+              <input type="text" class="form-control" id="editOtherId1" formControlName="other_id_no" required>
+              <div *ngIf="patientForm.get('other_id_no')?.invalid && (patientForm.get('other_id_no')?.touched || submitted)" class="text-danger">
+                ID Number is required.
+              </div>
+            </div>
+        
+            <div class="col-md-6 mb-3">
+              <label for="editOpNo1" class="form-label">Op No</label>
+              <input type="text" class="form-control" id="editOpNo1" formControlName="op">
+              <div  *ngIf="patientForm.get('op')?.invalid && (patientForm.get('op')?.touched || submitted)" class="text-danger" [hidden]="hide_op">
+                Op is required.
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="editIpNo1" class="form-label">Ip No</label>
+              <input type="text" class="form-control" id="editIpNo1" #myip formControlName="ip" (keyup)="keyUpip(myip.value)">
+            </div>
+        
+            <div class="col-md-6 mb-3" [hidden]="hide_me">
+              <label for="editModeAdmission1" class="form-label">Mode Of Admission</label>
+              <select class="form-select" id="editModeAdmission1" formControlName="mode_of_admission_id">
+                <option value="">--Select--</option>
+                <option *ngFor="let mode of all_modes_of_admission" [value]="mode.mode_of_admission_id">{{mode.mode_of_admission}}</option>
+              </select>
+              <div class="text-danger" [hidden]="hide_me">
+                Mode of admission is required.
+              </div>
+            </div>
+        
+            <div class="col-md-6 mb-3" [hidden]="hide_me">
+              <label for="department_select" class="form-label">Department</label>
+              <select class="form-select" id="department_select" formControlName="department_id">
+                <option value="">--Select--</option>
+                <option *ngFor="let department of all_departments" [value]="department.department_id">{{department.department_name}}</option>
+              </select>
+              <div class="text-danger" [hidden]="hide_me" >
+                Department is required.
+              </div>
+            </div>
+        
+            <div class="col-md-6 mb-3" [hidden]="hide_me">
+              <label for="editAdmittedArea1" class="form-label">Admitted Area/Cabin</label>
+              <input type="text" class="form-control" id="editAdmittedArea1" formControlName="admitted_area">
+              <div class="text-danger" [hidden]="hide_me" >
+                Cabin is required.
+              </div>
+            </div>
+        
+            <div class="col-md-6 mb-3" [hidden]="hide_me">
+              <label for="editReferredBy1" class="form-label">Referred By</label>
+              <input type="text" class="form-control" id="editReferredBy1" formControlName="referred_by">
+              <div class="text-danger" [hidden]="hide_me" >
+                Referred By
+              </div>
+            </div>
+        
+            <div class="col-md-6 mb-3">
+              <label for="editRemarks1" class="form-label">Remarks</label>
+              <input class="form-control" id="editRemarks1" formControlName="remarks" required>
+              <div *ngIf="patientForm.get('remarks')?.invalid && (patientForm.get('remarks')?.touched || submitted)" class="text-danger">
+                Remarks are required.
+              </div>
+            </div>
+        
+            <div class="col-md-6 mb-3">
+              <label for="editPatientMobile1" class="form-label">Patient Mobile No</label>
+              <input type="tel" class="form-control" id="editPatientMobile1" formControlName="mobile_number" required>
+              <div *ngIf="patientForm.get('mobile_number')?.invalid && (patientForm.get('mobile_number')?.touched || submitted)" class="text-danger">
+                Please enter a valid mobile number.
+              </div>
+            </div>
+        
+            <div class="col-md-6 mb-3">
+              <label for="editOpNo1" class="form-label">Ambulance Fee</label>
+              <input type="number" class="form-control" id="editOpNo1" formControlName="payment_amount" required>
+              <div *ngIf="patientForm.get('payment_amount')?.invalid && (patientForm.get('payment_amount')?.touched || submitted)" class="text-danger">
+                Payment amount is required.
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+        
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+       
+      </div>
+    </div>
+  </div>
+</div>

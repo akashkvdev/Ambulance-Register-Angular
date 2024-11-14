@@ -1,0 +1,35 @@
+<!-- Navbar -->
+<div class="pos">
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #274472;">
+        <div class="container-fluid">
+            <img src="https://www.hi-techhospital.in/images/new/Hi-tech%20-Logo-1.png" alt="Red Cross" class="red-cross-icon mx-2">
+            <a class="navbar-brand" href="#">Hi-Tech Ambulance Service</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse mt-3" id="navbarsExample04">
+                <div class="d-sm-flex align-items-center ms-auto">
+                    <span class="text-white me-3 user-info">{{user_name}}</span>
+                    <a class="icon-link me-3" (click)="goBack()" style="cursor: pointer;">
+                        <i class="bi bi-arrow-left-circle"></i> <!-- Backward arrow icon -->
+                    </a>
+                    <a class="icon-link me-3" (click)="goForward()"  style="cursor: pointer;">
+                        <i class="bi bi-arrow-right-circle"></i> <!-- Forward arrow icon -->
+                    </a>
+                    <button class="btn btn-danger logout-btn" (click)="logout()"><i class="bi bi-power"></i></button>
+                </div>
+            </div>
+        </div>  
+    </nav>
+</div>
+
+<!-- Card Container -->
+<div class="container mt-4 bg-light shadow p-4">
+    <router-outlet></router-outlet>
+</div>
+
+
+
+
+

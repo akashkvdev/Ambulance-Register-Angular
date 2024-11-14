@@ -1,0 +1,147 @@
+<div class="row" >
+
+    
+    <div class="col-md-4 mb-3" *ngFor="let data of allnavigations">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" >
+            <div class="card-body"  [routerLink]="data?.navigation?.nav_url">
+                <i class="{{data?.navigation?.nav_icon}}" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">{{data?.navigation?.nav_name}}</h5>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/add-user']">
+            <div class="card-body">
+                <i class="bi bi-person-plus" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">User Registration</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" >
+            <div class="card-body"  [routerLink]="['/landing/user/manage-user']">
+                <i class="bi bi-people" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Manage User</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/mode-of-admission']">
+            <div class="card-body">
+                <i class="bi bi-hospital" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Mode Of Admission</h5>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/ambulance-register']">
+            <div class="card-body">
+                <i class="bi bi-truck" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Ambulance Register</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/patient-details']">
+            <div class="card-body">
+                <i class="bi bi-file-earmark-medical" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Patient Details</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/add-role']">
+            <div class="card-body">
+                <i class="bi bi-person-circle" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Add Role</h5>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/assign-user']">
+            <div class="card-body">
+                <i class="bi bi-person-check" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Assign User</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/organization']">
+            <div class="card-body">
+                <i class="bi bi-building-add" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Organization</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/department']">
+            <div class="card-body">
+                <i class="bi bi-clipboard2-pulse" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Department</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/assign-navigation']">
+            <div class="card-body">
+                <i class="bi bi-menu-button-fill" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Assign Navigation</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/user/add-navigation']">
+            <div class="card-body">
+                <i class="bi bi-menu-up" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Add Navigation</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center hover-effect"
+            style="background-color: #f8f9fa; color: #274472; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;"
+            [routerLink]="['/landing/report/ambulance-details-report']">
+            <div class="card-body">
+                <i class="bi bi-receipt-cutoff" style=" color: #c12e2a;"></i>
+                <h5 class="card-title">Ambulance Details report</h5>
+            </div>
+        </div>
+    </div> -->
+
+
+
+</div>

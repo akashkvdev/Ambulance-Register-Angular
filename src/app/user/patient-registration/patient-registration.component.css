@@ -1,0 +1,30 @@
+h2{
+    font-size: 1.2rem;
+    color:  #c12e2a;
+}
+thead tr th{
+background-color: #274472;
+color: #ffffffe4;
+}
+
+th,tr{
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+input,label,.btn,select{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.btn{
+    background-color: #274472;
+    color: #ffffffe4;
+}
+
+@media(max-width:600px){
+h2{
+    font-size: 1rem;
+}
+tr,th{
+    font-size: 0.8rem;
+}
+}

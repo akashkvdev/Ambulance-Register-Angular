@@ -1,0 +1,132 @@
+<div class="container">
+  <!-- Header -->
+  <div class="text-center">
+    <h2>Add Department</h2>
+  </div>
+
+  <form  [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+  <div class="d-sm-flex align-items-center justify-content-center mb-3 gap-2">
+    <div class="col-md-4">
+      <label for="organization_id" class="form-label">Organization</label>
+      <select class="form-select" id="organization_id" formControlName="organization_id">
+        <option value="">--Select--</option>
+        <option *ngFor="let org of organization" [value]="org.organization_id">
+          {{ org.org_short_name }}
+        </option>
+      </select>
+      <div *ngIf="departmentForm.get('organization_id')?.invalid && departmentForm.get('organization_id')?.touched"
+        class="text-danger text-center">
+        Organization is required.
+      </div>
+    </div>
+
+    <div class="col-md-4">
+     <label for="department_name" class="form-label">Department name</label>
+        <input type="text" class="form-control" placeholder="Add Department"
+          formControlName="department_name" id="department_name" />
+        <div *ngIf="departmentForm.get('department_name')?.invalid && departmentForm.get('department_name')?.touched"
+          class="text-danger text-center">
+          Department name is required.
+        </div>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-primary mt-4">Submit</button>
+    </div>
+  </div>
+</form>
+  <!-- Add Department Form -->
+  <!-- <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+
+    <div class="d-sm-flex justify-content-center mt-4 gap-2">
+      <div class="mb-3">
+        <label for="organization_id" class="form-label">Organization</label>
+        <select class="form-control" id="organization_id" formControlName="organization_id">
+          <option value="">--Select--</option>
+          <option *ngFor="let org of organization" [value]="org.organization_id">
+            {{ org.org_short_name }}
+          </option>
+        </select>
+        <div *ngIf="departmentForm.get('organization_id')?.invalid && departmentForm.get('organization_id')?.touched"
+          class="text-danger text-center">
+          Organization is required.
+        </div>
+      </div>
+      
+
+      <div>
+        <label for="department_name" class="form-label">Department name</label>
+        <input type="text" class="form-control" placeholder="Add Department"
+          formControlName="department_name" id="department_name" />
+        <div *ngIf="departmentForm.get('department_name')?.invalid && departmentForm.get('department_name')?.touched"
+          class="text-danger text-center">
+          Department name is required.
+        </div>
+      </div>
+
+      <div class="mt-3">
+      <button class="btn mt-2" type="submit">Add</button>
+      </div>
+    </div>
+
+   
+  </form> -->
+
+  <!-- Table for Departments -->
+  <div class="table-responsive mt-5">
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th>Departments</th>
+          <th>Organization</th>
+          <th>Action</th>
+          <th>Activation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let department of all_departments; index as i">
+          <td>{{ department.department_name }}</td>
+          <td>{{ department?.organization?.org_short_name}}</td>
+          <td>
+            <button class="btn" data-bs-toggle="modal" data-bs-target="#editModeModal"
+              (click)="editDepartment(department)">Edit</button>
+          </td>
+          <td class="d-flex align-item-center justify-content-center">
+            <div class="form-check form-switch">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                role="switch" 
+                id="flexSwitchCheckChecked{{i}}"
+                [checked]="department?.status === 1"
+                (change)="toggleStatus(department)"
+                style="cursor: pointer;" 
+              />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Edit Department Modal -->
+  <div class="modal fade" id="editModeModal" tabindex="-1" aria-labelledby="editModeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModeModalLabel">Edit Department</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="editDepartmentForm">
+            <input type="text" class="form-control" formControlName="department_name" />
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="onUpdateFunction()" data-bs-dismiss="modal">Save
+            changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

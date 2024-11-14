@@ -1,0 +1,42 @@
+<div class="bg-ambulance d-flex align-items-center justify-content-center">
+  <div class="login-container">
+    <div class="logo">
+      <img src="https://www.hi-techhospital.in/images/new/Hi-tech%20-Logo-1.png" alt="Ambulance Logo">
+    </div>
+    <h1 class="text-center text-danger">Ambulance Service Login</h1>
+    <div class="text-center">
+      <img src="https://e7.pngegg.com/pngimages/989/675/png-clipart-cross-red-illustration-first-aid-cardiopulmonary-resuscitation-first-aid-doctor-flag-text-thumbnail.png" alt="Red Cross" class="red-cross-icon">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+      <h4 class="text-primary d-inline">Hi-Tech Ambulance Service</h4>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="mb-3">
+        <label for="loginid" class="form-label">
+          <i class="bi bi-envelope"></i> Login Id
+        </label>
+        <input type="text" class="form-control" id="loginid" placeholder="Enter LoginId" formControlName="login_id">
+        <div *ngIf="loginForm.get('login_id')?.invalid && loginForm.get('login_id')?.touched" class="text-danger">
+          Login ID is required.
+        </div>
+      </div>
+      <div class="mb-3 position-relative">
+        <label for="password" class="form-label">
+          <i class="bi bi-lock-fill"></i> Password
+        </label>
+        <input type="password" class="form-control" id="password" placeholder="Enter password" formControlName="contact_no">
+        <i class="bi bi-eye-slash toggle-password mt-3 mx-3" id="togglePassword" (click)="togglePasswordVisibility()"></i>
+        <div *ngIf="loginForm.get('contact_no')?.invalid && loginForm.get('contact_no')?.touched" class="text-danger">
+          Password is required.
+        </div>
+      </div>
+      
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-block animated-button" [disabled]="loginForm.invalid">Login</button>
+      </div>
+      <div class="login-footer">
+        <a href="#" class="text-decoration-none">Forgot password?</a>
+      </div>
+    </form>
+  </div>
+</div>

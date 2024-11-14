@@ -1,0 +1,57 @@
+.table {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+
+
+label,
+input,
+td,
+th {
+    font-size: 0.8rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #c12e2a;
+    margin-bottom: 20px;
+}
+
+thead tr th {
+    background-color: #274472;
+    color: #ffffffe4;
+}
+
+.btn {
+    background-color: #274472;
+    color: #ffffffe4; font-size: 0.8rem;
+}
+
+@media(max-width:600px) {
+    h2 {
+        font-size: 1rem;
+    }
+
+    tr,
+    th {
+        font-size: 0.8rem;
+    }
+    label,
+input,
+td,
+th {
+    font-size: 0.8rem;
+}
+}
+
+/* Checked state - danger color */
+.form-check-input:checked {
+    background-color: #dc3545; /* Bootstrap danger color */
+    border-color: #dc3545;
+}

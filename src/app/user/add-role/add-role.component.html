@@ -1,0 +1,83 @@
+<div class="container">
+  <!-- Header -->
+  <div class="text-center">
+      <h2>Add Role</h2>
+  </div>
+
+  <!-- Add Mode of Admission Form -->
+  <form [formGroup]="admissionForm" (ngSubmit)="onSubmit()">
+      <div class="d-flex justify-content-center mt-4">
+          <input
+              type="text"
+              class="form-control w-50 me-2"
+              placeholder="Add mode of admission"
+              formControlName="role_name"
+          />
+          <button class="btn" type="submit">Add</button>
+      </div>
+
+      <div *ngIf="admissionForm.get('role_name')?.invalid && admissionForm.get('role_name')?.touched" class="text-danger text-center">
+          User role is required.
+      </div>
+  </form>
+
+  <!-- Table for Modes -->
+  <div class="table-responsive mt-5">
+      <table class="table table-bordered text-center">
+          <thead>
+              <tr>
+                  <th>Sl No</th>
+                  <th>Roles</th>
+                  <th>Action</th>
+                  <th>Activation</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let mode of all_modes_of_admission; index as i">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ mode.role_name }}</td>
+                  <td>
+                      <button class="btn" data-bs-toggle="modal" data-bs-target="#editModeModal" (click)="editMode(mode)">Edit</button>
+                  </td>
+                  <td class="d-flex align-item-center justify-content-center">
+                    <div class="form-check form-switch">
+                        <input 
+                          class="form-check-input" 
+                          type="checkbox" 
+                          role="switch" 
+                          id="flexSwitchCheckChecked{{i}}"
+                          [checked]="mode?.status === 1"
+                          (change)="toggleStatus(mode)"
+                          style="cursor: pointer;" 
+                        />
+                      </div>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <!-- Edit Mode Modal -->
+  <div class="modal fade" id="editModeModal" tabindex="-1" aria-labelledby="editModeModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="editModeModalLabel">Edit Roles</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form [formGroup]="updateForm">
+                      <input type="text" class="form-control" formControlName="role_name" />
+                      <div *ngIf="updateForm.get('role_name')?.invalid && updateForm.get('role_name')?.touched" class="text-danger">
+                          Role is required.
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" (click)="onUpdateFunction()" data-bs-dismiss="modal">Save</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

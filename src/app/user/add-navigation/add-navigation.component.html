@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Add Navigation</h2>
+            </div>
+            <!-- <div class="form-date">
+                <span class="date-text">Date - 10/11/2022</span>
+            </div> -->
+            <form [formGroup]="navForm" (ngSubmit)="onSubmit()">
+              <div class="row mb-2">
+                <!-- Nav Name -->
+                <div class="col-md-6">
+                  <label for="nav-name" class="form-label">Nav Name</label>
+                  <input type="text" class="form-control" id="nav-name" placeholder="Nav Name" formControlName="nav_name">
+                  <div *ngIf="navForm.get('nav_name')?.invalid && navForm.get('nav_name')?.touched" class="text-danger">
+                    Nav Name is required
+                  </div>
+                </div>
+            
+                <!-- Nav Url -->
+                <div class="col-md-6">
+                  <label for="Nav_url" class="form-label">Nav Url</label>
+                  <input type="text" class="form-control" id="Nav_url" placeholder="Nav Url" formControlName="nav_url">
+                  <div *ngIf="navForm.get('nav_url')?.invalid && navForm.get('nav_url')?.touched" class="text-danger">
+                    Nav Url is required
+                  </div>
+                </div>
+              </div>
+            
+              <div class="row mb-3">
+                <!-- Icon -->
+                <div class="col-md-6">
+                  <label for="Icon" class="form-label">Icon (only Bootstrap 5)</label>
+                  <input type="text" class="form-control" id="Icon" placeholder="Icon" formControlName="nav_icon">
+                  <div *ngIf="navForm.get('nav_icon')?.invalid && navForm.get('nav_icon')?.touched" class="text-danger">
+                    Icon is required
+                  </div>
+                </div>
+              </div>
+            
+              <div class="text-center">
+                <button type="submit" class="btn submit-btn" [disabled]="navForm.invalid">Submit</button>
+              </div>
+            </form>
+            
+        </div>
+    </div>
+
+
+
+    <div class="container my-4">
+        <h2 class="text-center mb-4">Navigations</h2>
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl No</th>
+                        <th scope="col">Nav Name</th>
+                        <th scope="col">Nav Url</th>
+                        <th scope="col">Nav Icon</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of all_navs ; index as i">
+                        <td scope="row">{{i+1}}</td>
+                        <td>{{data.nav_name}}</td>
+                        <td>{{data.nav_url}}</td>
+                        <td>
+                          {{ data.nav_icon }}
+                          <i [ngClass]="data.nav_icon"style=" color: #c12e2a;"></i>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal1" (click)="editNav(data)">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Edit Modal for Navigation 1 -->
+    <div class="modal fade" id="editModal1" tabindex="-1" aria-labelledby="editModalLabel1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel1">Edit Navigation - Home</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="editUserForm" (ngSubmit)="onUpdate()">
+              <div class="mb-3">
+                <label for="navName1" class="form-label">Nav Name</label>
+                <input type="text" class="form-control" id="navName1" value="Home" formControlName="nav_name">
+                <div *ngIf="editUserForm.get('nav_name')?.invalid && (editUserForm.get('nav_name')?.touched || editUserForm.get('nav_name')?.dirty)" class="text-danger">
+                  <div *ngIf="editUserForm.get('nav_name')?.errors?.['required']">Nav Name is required.</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="navUrl1" class="form-label">Nav Url</label>
+                <input type="text" class="form-control" id="navUrl1" value="/home" formControlName="nav_url">
+                <div *ngIf="editUserForm.get('nav_url')?.invalid && (editUserForm.get('nav_url')?.touched || editUserForm.get('nav_url')?.dirty)" class="text-danger">
+                  <div *ngIf="editUserForm.get('nav_url')?.errors?.['required']">Nav Url is required.</div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="navIcon1" class="form-label">Nav Icon</label>
+                <input type="text" class="form-control" id="navIcon1" value="bi-house" formControlName="nav_icon">
+                <div *ngIf="editUserForm.get('nav_icon')?.invalid && (editUserForm.get('nav_icon')?.touched || editUserForm.get('nav_icon')?.dirty)" class="text-danger">
+                  <div *ngIf="editUserForm.get('nav_icon')?.errors?.['required']">Nav Icon is required.</div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+ 
+    
+</div>
+

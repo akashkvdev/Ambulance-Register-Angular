@@ -1,0 +1,142 @@
+<div class="container">
+  <!-- Header -->
+  <div class="text-center">
+    <h2>AddOrganization</h2>
+  </div>
+
+  <!-- Add Mode of Admission Form -->
+  <form [formGroup]="admissionForm" class="d-flex justify-content-center align-item-center mt-2" (ngSubmit)="onSubmit()">
+    <div>
+      <div>
+        <input type="text" class="form-control xx mb-2" placeholder="Add Organization Name"
+          formControlName="organization_name"/>
+        <div *ngIf="admissionForm.get('organization_name')?.invalid && admissionForm.get('organization_name')?.touched"
+          class="text-danger text-center">
+          Organization Name is required.
+        </div>
+      </div>
+
+      <div>
+        <input type="text" class="form-control mb-2" placeholder="Add org short name"
+          formControlName="org_short_name" />
+        <div *ngIf="admissionForm.get('org_short_name')?.invalid && admissionForm.get('org_short_name')?.touched"
+          class="text-danger text-center">
+          Organization Short Name is required.
+        </div>
+      </div>
+
+      <div>
+        <input type="text" class="form-control mb-2" placeholder="Add moorganization_location"
+          formControlName="organization_location" />
+        <div *ngIf="admissionForm.get('organization_location')?.invalid && admissionForm.get('organization_location')?.touched"
+          class="text-danger text-center">
+          Organization location required.
+        </div>
+      </div>
+
+
+      <div>
+        <button class="btn" type="submit">Add</button>
+      </div>
+
+    </div>
+
+
+  </form>
+
+  <!-- Table for Modes -->
+  <div class="table-responsive mt-5">
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Organization name</th>
+          <th>Short name</th>
+          <th>Location</th>
+          <th>Action</th>
+          <th>Activation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mode of all_modes_of_admission; index as i">
+          <td>{{ i + 1 }}</td>
+          <td>{{ mode.organization_name }}</td>
+          <td>{{ mode.org_short_name }}</td>
+          <td>{{ mode.organization_location }}</td>
+          <td>
+            <button class="btn" data-bs-toggle="modal" data-bs-target="#editModeModal"
+              (click)="editMode(mode)">Edit</button>
+          </td>
+          <td class="d-flex align-item-center justify-content-center">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked{{i}}"
+                [checked]="mode?.status === 1" (change)="toggleStatus(mode)" style="cursor: pointer;" />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Edit Mode Modal -->
+  <div class="modal fade" id="editModeModal" tabindex="-1" aria-labelledby="editModeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModeModalLabel">Edit Organization</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="updateForm">
+            <div class="mb-3">
+              <label for="organization_name" class="form-label">Organization Name</label>
+              <input
+                type="text"
+                id="organization_name"
+                class="form-control"
+                formControlName="organization_name"
+              />
+              <div *ngIf="updateForm.get('organization_name')?.invalid && updateForm.get('organization_name')?.touched"
+                class="text-danger">
+                Organization name is required.
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="org_short_name" class="form-label">Organization Short Name</label>
+              <input
+                type="text"
+                id="org_short_name"
+                class="form-control"
+                formControlName="org_short_name"
+              />
+              <div *ngIf="updateForm.get('org_short_name')?.invalid && updateForm.get('org_short_name')?.touched"
+                class="text-danger">
+                Organization short name is required.
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="organization_location" class="form-label">Organization Location</label>
+              <input
+                type="text"
+                id="organization_location"
+                class="form-control"
+                formControlName="organization_location"
+              />
+              <div *ngIf="updateForm.get('organization_location')?.invalid && updateForm.get('organization_location')?.touched"
+                class="text-danger">
+                Organization location is required.
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="onUpdateFunction()" data-bs-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

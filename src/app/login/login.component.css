@@ -1,0 +1,112 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .login-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    padding: 2rem;
+    max-width: 400px;
+    margin: 50px auto;
+  }
+
+ 
+  
+  .login-container h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+  
+  .login-container h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .red-cross-icon {
+    width: 30px;
+    margin-right: 8px;
+  }
+  
+  .login-container .form-control {
+    border-radius: 30px;
+    padding: 0.75rem 1rem;
+  }
+  
+  .login-container .form-label {
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+  
+  .login-container .form-label i {
+    margin-right: 8px;
+  }
+  
+  .login-container .btn-primary {
+    background-color: #d9534f;
+    border-color: #d9534f;
+    border-radius: 30px;
+    font-size: 16px;
+  }
+  
+  .login-container .btn-primary:hover {
+    background-color: #c9302c;
+    border-color: #c12e2a;
+    transition: all 0.3s ease;
+  }
+  
+  .animated-button {
+    animation: bounce 1s ease-in-out infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  .logo {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .logo img {
+    width: 100px;
+  }
+  
+  .bg-ambulance {
+    background-image: linear-gradient(120deg, rgba(255, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://cdn.pixabay.com/photo/2017/02/07/10/20/ambulance-2044349_960_720.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  }
+  
+  .login-footer {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .position-relative {
+    position: relative;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #274472;
+  }
+  
+  .toggle-password:hover {
+    color: #274472;
+  }
+  

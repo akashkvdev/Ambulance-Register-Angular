@@ -1,0 +1,114 @@
+<div class="container my-4">
+  <h2 class="text-center mb-4">User Details</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+      <thead>
+        <tr>
+          <th scope="col">Sl No</th>
+          <th scope="col">User Name</th>
+          <th scope="col">LoginId</th>
+          <th scope="col">Role</th>
+          <th scope="col">Contact</th>
+          <th scope="col">User Type</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+          <th scope="col">Activation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of all_user; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ user?.user_name || '-' }}</td>
+          <td>{{ user?.user_details?.login_id || '-' }}</td>
+          <td>{{ user?.role?.role_name || '-' }}</td>
+          <td>{{ user?.user_details?.contact_no || '-' }}</td>
+          <td [ngClass]="{
+              'text-success': user?.user_type === 1,
+              'text-danger': user?.user_type === 0
+            }">
+            {{ user?.user_type === 1 ? 'Permanent' : user?.user_type === 0 ? 'Temporary' : '-' }}
+          </td>
+          <td [ngStyle]="{ 'color': user?.user_details?.status === 1 ? 'green' : 'red' }">
+            {{ user?.user_details?.status === 1 ? 'Active' : 'Deactive' }}
+          </td>
+          <td>
+            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal1" 
+              (click)="editUserDetails(user)">Edit</button>
+          </td>
+          <td>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked{{ i }}"
+                [checked]="user?.user_details?.status === 1" (change)="toggleStatus(user)" style="cursor: pointer;" />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal for Editing Users -->
+<div class="modal fade" id="editModal1" tabindex="-1" aria-labelledby="editModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel1">Edit User - {{ editUser?.user_name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #editUserForm="ngForm" (ngSubmit)="onSubmit(editUserForm)">
+          <div class="mb-3">
+            <label for="editUserName" class="form-label">User Name</label>
+            <input type="text" class="form-control" id="editUserName" name="user_name" [(ngModel)]="editUser.user_name"
+              required pattern="^[A-Za-z\s]+$">
+            <div *ngIf="editUserForm.controls['user_name']?.invalid && (editUserForm.controls['user_name']?.touched || editUserForm.controls['user_name']?.dirty)" class="text-danger">
+              <div *ngIf="editUserForm.controls['user_name']?.errors?.['required']">User Name is required.</div>
+              <div *ngIf="editUserForm.controls['user_name']?.errors?.['pattern']">User Name must contain only letters and spaces.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="editContactNo" class="form-label">Contact No</label>
+            <!-- Ensure contact_no is initialized properly -->
+            <input type="text" class="form-control" id="editContactNo" name="contact_no" [(ngModel)]="editUser.user_details.contact_no"
+              required pattern="^[0-9]{10}$">
+            <div *ngIf="editUserForm.controls['contact_no']?.invalid && (editUserForm.controls['contact_no']?.touched || editUserForm.controls['contact_no']?.dirty)" class="text-danger">
+              <div *ngIf="editUserForm.controls['contact_no']?.errors?.['required']">Contact No is required.</div>
+              <div *ngIf="editUserForm.controls['contact_no']?.errors?.['pattern']">Contact No must be 10 digits long and contain only numbers.</div>
+            </div>
+          </div> 
+
+          <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select class="form-control" id="role" name="role_id" [(ngModel)]="editUser.role_id" required>
+              <option value="">--Select--</option>
+              <option *ngFor="let role of all_roles" [value]="role.role_id">{{ role.role_name }}</option>
+            </select>
+            <div *ngIf="editUserForm.controls['role_id']?.invalid && (editUserForm.controls['role_id']?.touched || editUserForm.controls['role_id']?.dirty)" class="text-danger">
+              <div *ngIf="editUserForm.controls['role_id']?.errors?.['required']">Role is required.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="organization" class="form-label">Organization</label>
+            <select class="form-control" id="organization" name="organization_id" [(ngModel)]="editUser.organization_id" required>
+              <option value="">--Select--</option>
+              <option *ngFor="let org of organization" [value]="org.organization_id">{{ org.org_short_name }}</option>
+            </select>
+            <div *ngIf="editUserForm.controls['organization']?.invalid && (editUserForm.controls['organization']?.touched || editUserForm.controls['organization']?.dirty)" class="text-danger">
+              <div *ngIf="editUserForm.controls['organization']?.errors?.['required']">Organization is required.</div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary" [disabled]="editUserForm.invalid">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
